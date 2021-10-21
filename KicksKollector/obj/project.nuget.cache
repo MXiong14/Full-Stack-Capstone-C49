@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "GzBUKK+ruDFoVmbMzsS0oxZAWbU1TLx5V+zS1CNF6+reFfRgyBtF+PMvTI+9yxMPDqacy8h2SXp7Y9yvAy7n6w==",
+  "dgSpecHash": "NmG4r4we9QLkLMs1QWJHYowsCZGY4CboH/9/Fp1aq/t1WWrH8UTOdWV3E0rZxlCXo8A9HEPeHUsI1spMigEUEA==",
   "success": true,
   "projectFilePath": "C:\\Users\\mattx\\workspace\\KicksKollector\\KicksKollector\\KicksKollector.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mattx\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\mattx\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
+    "C:\\Users\\mattx\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.11\\microsoft.aspnetcore.authentication.jwtbearer.5.0.11.nupkg.sha512",
     "C:\\Users\\mattx\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
     "C:\\Users\\mattx\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\mattx\\.nuget\\packages\\microsoft.data.sqlclient\\3.0.1\\microsoft.data.sqlclient.3.0.1.nupkg.sha512",
