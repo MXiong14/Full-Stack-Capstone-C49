@@ -4,7 +4,7 @@ const apiUrl = "/api/Post";
 
 export const getAllPosts = () => {
   return getToken().then((token) => {
-    return fetch(apiUrl, {
+    return fetch(`${apiUrl}/AllPosts`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

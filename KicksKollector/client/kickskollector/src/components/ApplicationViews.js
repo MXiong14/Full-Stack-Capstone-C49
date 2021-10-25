@@ -8,7 +8,7 @@ export default function ApplicationViews({ isLoggedIn }) {
   return (
     <main>
       <Switch>
-        <Route path="/" exact>
+        <Route path="/AllPosts" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
 

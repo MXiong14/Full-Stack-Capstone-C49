@@ -21,8 +21,8 @@ export const Post = ({ post }) => {
           </h2>
         </p>
         <CardBody>
-          <p className="post-content">{post.size}</p>
-          <p className="post-content">{post.stylecode}</p>
+          <p className="post-size">{post.size}</p>
+          <p className="post-stylecode">{post.stylecode}</p>
         </CardBody>
       </Card>
     </>

@@ -22,7 +22,7 @@ namespace Tabloid.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
-        [HttpGet]
+        [HttpGet("AllPosts")]
         public IActionResult Get()
         {
             var posts = _postRepository.GetAll();
