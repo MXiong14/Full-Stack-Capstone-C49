@@ -15,6 +15,8 @@ namespace KicksKollector.Models
 
         public string StyleCode { get; set; }
 
+        public int Quantity { get; set; }
+
         public int PurchasePrice { get; set; }
 
         public int SoldPrice { get; set; }

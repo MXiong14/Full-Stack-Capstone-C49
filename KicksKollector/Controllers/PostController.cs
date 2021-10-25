@@ -54,6 +54,42 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        [HttpPost]
+        public IActionResult AddPost(Post post)
+        {
+            var currentUser = GetCurrentUserProfile();
+            post.UserProfileId = currentUser.Id;
+            _postRepository.AddPost(post);
+            return CreatedAtAction(nameof(Get), new { id = post.Id }, post);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var currentUser = GetCurrentUserProfile();
+            _postRepository.DeletePost(id);
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Post post)
+        {
+            var currentUser = GetCurrentUserProfile();
+
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+
+            if (currentUser.Id != post.UserProfileId)
+            {
+                return Unauthorized();
+            }
+
+            _postRepository.EditPost(post);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

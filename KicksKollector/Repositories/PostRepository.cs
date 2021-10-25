@@ -38,6 +38,7 @@ namespace KicksKollector.Repositories
                     Name = DbUtils.GetString(reader, "Name"),
                     Size = DbUtils.GetInt(reader, "Size"),
                     StyleCode = DbUtils.GetString(reader, "StyleCode"),
+                    Quantity = DbUtils.GetInt(reader, "Quantity"),
                     PurchasePrice = DbUtils.GetInt(reader, "PurchasePrice"),
                     SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
                     BrandId = DbUtils.GetInt(reader, "BrandId"),
@@ -94,6 +95,7 @@ namespace KicksKollector.Repositories
                     Name = DbUtils.GetString(reader, "Name"),
                     Size = DbUtils.GetInt(reader, "Size"),
                     StyleCode = DbUtils.GetString(reader, "StyleCode"),
+                    Quantity = DbUtils.GetInt(reader, "Quantity"),
                     PurchasePrice = DbUtils.GetInt(reader, "PurchasePrice"),
                     SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
                     BrandId = DbUtils.GetInt(reader, "BrandId"),
@@ -173,6 +175,79 @@ namespace KicksKollector.Repositories
 
             }
             return post;
+        }
+
+        public void AddPost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Post (
+                                        Name, Size, StyleCode, Quantity,
+                                        PurchasePrice, SoldPrice, UserProfileId, BrandId)
+                                        OUTPUT INSERTED.ID
+                                        VALUES(@name,@content,@styleCode,@quantity, @purchasePrice, @soldPrice, @userProfileId, @brandId);";
+                    DbUtils.AddParameter(cmd, "@name", post.Name);
+                    DbUtils.AddParameter(cmd, "@size", post.Size);
+                    DbUtils.AddParameter(cmd, "@styleCode", post.StyleCode);
+                    DbUtils.AddParameter(cmd, "@quantity", post.Quantity);
+                    DbUtils.AddParameter(cmd, "@purchasePrice", post.PurchasePrice);
+                    DbUtils.AddParameter(cmd, "@soldPrice", post.SoldPrice);
+                    DbUtils.AddParameter(cmd, "@userProfileId", post.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@brandId", post.BrandId);
+
+                    post.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+        public void DeletePost(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        DELETE FROM POST
+                                        WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void EditPost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                      UPDATE Post
+                      SET Name = Name,
+                      Size = Size,
+                      StyleCode = StyleCode, 
+                      Quantity = Quantity,
+                      PurchasePrice = PurchasePrice,
+                      SoldPrice = SoldPrice,
+                      BrandId = BrandId
+                      WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Name", post.Name);
+                    DbUtils.AddParameter(cmd, "@Size", post.Size);
+                    DbUtils.AddParameter(cmd, "@StyleCode", post.StyleCode);
+                    DbUtils.AddParameter(cmd, "@Quantity", post.Quantity);
+                    DbUtils.AddParameter(cmd, "@PurchasePrice", post.PurchasePrice);
+                    DbUtils.AddParameter(cmd, "@SoldPrice", post.SoldPrice);
+                    DbUtils.AddParameter(cmd, "@BrandId", post.BrandId);
+                    DbUtils.AddParameter(cmd, "@Id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

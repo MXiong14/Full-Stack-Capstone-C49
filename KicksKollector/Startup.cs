@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using KicksKollector.Repositories;
 using Microsoft.IdentityModel.Logging;
+using System.IdentityModel.Tokens.Jwt;
+using System;
 
 namespace KicksKollector
 {
@@ -26,6 +28,7 @@ namespace KicksKollector
 
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<IBrandRepository, BrandRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
@@ -33,15 +36,20 @@ namespace KicksKollector
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = googleTokenUrl;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = googleTokenUrl,
-                        ValidateAudience = true,
-                        ValidAudience = firebaseProjectId,
-                        ValidateLifetime = true
-                    };
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = CreateTokenValidationParameters(googleTokenUrl);
+                    //options.TokenValidationParameters = new TokenValidationParameters
+                    //{
+                    //    ValidateIssuer = false,
+                    //    ValidIssuer = googleTokenUrl,
+                    //    ValidateAudience = false,
+                    //    ValidAudience = firebaseProjectId,
+                    //    ValidateLifetime = false,
+                    //    ValidateIssuerSigningKey = false,
+                    //    RequireSignedTokens = false,
+                    //    RequireExpirationTime = false
+                    //};
                 });
 
             services.AddControllers();
@@ -93,6 +101,38 @@ namespace KicksKollector
             {
                 endpoints.MapControllers();
             });
+        }
+
+        public TokenValidationParameters CreateTokenValidationParameters(string google)
+        {
+            var result = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                //ValidIssuer = google,
+
+                ValidateAudience = false,
+                //ValidAudience = google,
+
+                ValidateIssuerSigningKey = false,
+
+                //IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey)),
+                //comment this and add this line to fool the validation logic
+                SignatureValidator = delegate (string token, TokenValidationParameters parameters)
+                {
+                    var jwt = new JwtSecurityToken(token);
+
+                    return jwt;
+                },
+
+                RequireExpirationTime = true,
+                ValidateLifetime = true,
+
+                ClockSkew = TimeSpan.Zero,
+            };
+
+            result.RequireSignedTokens = false;
+
+            return result;
         }
     }
 }

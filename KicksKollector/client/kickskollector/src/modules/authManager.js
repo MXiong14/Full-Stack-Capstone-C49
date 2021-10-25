@@ -35,6 +35,7 @@ export const login = (email, pw) => {
     .signInWithEmailAndPassword(email, pw)
     .then((signInResponse) => _doesUserExist(signInResponse.user.uid))
     .then((doesUserExist) => {
+      console.log(doesUserExist);
       if (!doesUserExist) {
         // If we couldn't find the user in our app's database, we should logout of firebase
         logout();

@@ -20,7 +20,7 @@ namespace KicksKollector.Repositories
 
             cmd.CommandText = @"
                     SELECT Id, [Name]
-                    FROM Category
+                    FROM Brand
                     ORDER BY [Name]";
 
             using var reader = cmd.ExecuteReader();
