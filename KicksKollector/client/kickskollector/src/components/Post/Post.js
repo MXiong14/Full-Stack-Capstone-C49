@@ -8,9 +8,6 @@ export const Post = ({ post }) => {
   return (
     <>
       <Card>
-        <Link to={`/GetPostById/edit/${post.id}`}>
-          <button>Edit Post</button>
-        </Link>
         <p className="post-title">
           <h2
             onClick={() => {
@@ -22,7 +19,7 @@ export const Post = ({ post }) => {
         </p>
         <CardBody>
           <p className="post-size">{post.size}</p>
-          <p className="post-stylecode">{post.stylecode}</p>
+          <p className="post-stylecode">{post.styleCode}</p>
         </CardBody>
       </Card>
     </>

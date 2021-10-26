@@ -19,58 +19,61 @@ export default function Header({ isLoggedIn }) {
     <div>
       <Navbar color="light" light expand="md">
         <NavbarBrand tag={RRNavLink} to="/">
-          Tabloid
+          KicksKollector
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            {/* When isLoggedIn === true, we will render the Home link */}
-            {isLoggedIn && (
-              <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/">
-                    Home
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/AllPosts">
-                    Community Posts
-                  </NavLink>
-                </NavItem>
-              </>
-            )}
-          </Nav>
-          <Nav navbar>
-            {isLoggedIn && (
-              <>
-                <NavItem>
-                  <a
-                    aria-current="page"
-                    className="nav-link"
-                    style={{ cursor: "pointer" }}
-                    onClick={logout}
-                  >
-                    Logout
-                  </a>
-                </NavItem>
-              </>
-            )}
-            {!isLoggedIn && (
-              <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/login">
-                    Login
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/register">
-                    Register
-                  </NavLink>
-                </NavItem>
-              </>
-            )}
-          </Nav>
-        </Collapse>
+        <Nav className="mr-auto" navbar>
+          {/* When isLoggedIn === true, we will render the Home link */}
+          {isLoggedIn && (
+            <>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/">
+                  Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/AllPosts">
+                  Community Posts
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/MyInventory">
+                  My Inventory
+                </NavLink>
+              </NavItem>
+            </>
+          )}
+        </Nav>
+        <Nav navbar>
+          {isLoggedIn && (
+            <>
+              <NavItem>
+                <a
+                  aria-current="page"
+                  className="nav-link"
+                  style={{ cursor: "pointer" }}
+                  onClick={logout}
+                >
+                  Logout
+                </a>
+              </NavItem>
+            </>
+          )}
+          {!isLoggedIn && (
+            <>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/login">
+                  Login
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/register">
+                  Register
+                </NavLink>
+              </NavItem>
+            </>
+          )}
+        </Nav>
       </Navbar>
     </div>
   );

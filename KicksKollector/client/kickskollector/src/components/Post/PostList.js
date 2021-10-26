@@ -17,9 +17,6 @@ export const PostList = () => {
   return (
     <>
       <section className="posts">
-        <Link to="/create">
-          <button>New Post</button>
-        </Link>
         {posts.map((post) => {
           return <Post post={post} id={post.id} />;
         })}

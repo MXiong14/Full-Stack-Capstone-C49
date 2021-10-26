@@ -24,7 +24,8 @@ namespace KicksKollector.Repositories
 	                       b.[Name]
                     FROM Post p
                     LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
-                    LEFT JOIN Brand b ON p.BrandId = b.Id";
+                    LEFT JOIN Brand b ON p.BrandId = b.Id
+                    ORDER BY p.Id DESC";
 
             List<Post> posts = new List<Post>();
 
