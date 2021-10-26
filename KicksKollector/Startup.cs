@@ -29,6 +29,7 @@ namespace KicksKollector
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IBrandRepository, BrandRepository>();
+            
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
@@ -36,24 +37,19 @@ namespace KicksKollector
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = CreateTokenValidationParameters(googleTokenUrl);
-                    //options.TokenValidationParameters = new TokenValidationParameters
-                    //{
-                    //    ValidateIssuer = false,
-                    //    ValidIssuer = googleTokenUrl,
-                    //    ValidateAudience = false,
-                    //    ValidAudience = firebaseProjectId,
-                    //    ValidateLifetime = false,
-                    //    ValidateIssuerSigningKey = false,
-                    //    RequireSignedTokens = false,
-                    //    RequireExpirationTime = false
-                    //};
+                    options.Authority = googleTokenUrl;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = googleTokenUrl,
+                        ValidateAudience = true,
+                        ValidAudience = firebaseProjectId,
+                        ValidateLifetime = true
+                    };
                 });
 
             services.AddControllers();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "KicksKollector", Version = "v1" });
@@ -78,6 +74,7 @@ namespace KicksKollector
                     { securitySchema, new[] { "Bearer"} }
                 });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,36 +100,6 @@ namespace KicksKollector
             });
         }
 
-        public TokenValidationParameters CreateTokenValidationParameters(string google)
-        {
-            var result = new TokenValidationParameters
-            {
-                ValidateIssuer = false,
-                //ValidIssuer = google,
-
-                ValidateAudience = false,
-                //ValidAudience = google,
-
-                ValidateIssuerSigningKey = false,
-
-                //IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey)),
-                //comment this and add this line to fool the validation logic
-                SignatureValidator = delegate (string token, TokenValidationParameters parameters)
-                {
-                    var jwt = new JwtSecurityToken(token);
-
-                    return jwt;
-                },
-
-                RequireExpirationTime = true,
-                ValidateLifetime = true,
-
-                ClockSkew = TimeSpan.Zero,
-            };
-
-            result.RequireSignedTokens = false;
-
-            return result;
-        }
+      
     }
 }

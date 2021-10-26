@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getPostById } from "../../modules/postManager";
+import { Card, CardBody } from "reactstrap";
 
 export const PostDetail = () => {
   const [post, setPost] = useState({});
@@ -12,9 +13,17 @@ export const PostDetail = () => {
 
   return (
     <>
-      <div className="detail_Wrapper">
-        <h3>{post.name}</h3>
-      </div>
+      <Card>
+        <CardBody>
+          <h2>{post.name}</h2>
+          <p className="post-size">{post.size}</p>
+          <p className="post-stylecode">{post.styleCode}</p>
+          <p className="post-quantity">{post.quantity}</p>
+          <p>{post.purchasePrice}</p>
+          <p>{post.soldPrice}</p>
+          <p>{post.brandId}</p>
+        </CardBody>
+      </Card>
     </>
   );
 };

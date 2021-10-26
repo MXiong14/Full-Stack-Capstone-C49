@@ -26,7 +26,6 @@ C:\Users\mattx\workspace\KicksKollector\KicksKollector\obj\Debug\net5.0\KicksKol
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\obj\Debug\net5.0\ref\KicksKollector.dll
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\obj\Debug\net5.0\KicksKollector.pdb
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\obj\Debug\net5.0\KicksKollector.genruntimeconfig.cache
-C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\appsettings.Local.json
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\client\kickskollector\package-lock.json
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\client\kickskollector\package.json
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\client\kickskollector\public\manifest.json
@@ -54,3 +53,4 @@ C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\runtimes
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\mattx\workspace\KicksKollector\KicksKollector\bin\Debug\net5.0\appsettings.Development.json
