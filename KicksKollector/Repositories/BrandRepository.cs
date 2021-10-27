@@ -1,5 +1,6 @@
 ﻿using KicksKollector.Models;
 using KicksKollector.Utils;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,37 @@ namespace KicksKollector.Repositories
                 brands.Add(brand);
             }
             return brands;
+        }
+        public Brand GetBrandById(int id)
+        {
+            using var conn = Connection;
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"SELECT Id, Name
+                                  FROM Brand
+                                  WHERE Id = @id";
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            using var reader = cmd.ExecuteReader();
+
+            Brand brand = null;
+
+            if (reader.Read())
+            {
+                brand = new Brand
+                {
+                    Id = DbUtils.GetInt(reader, "Id"),
+                    Name = DbUtils.GetString(reader, "Name"),
+                };
+
+            }
+            reader.Close();
+            return brand;
+
+
+
         }
     }
 }

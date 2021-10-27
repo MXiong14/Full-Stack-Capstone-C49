@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { getPostById } from "../../modules/postManager";
 import { Card, CardBody } from "reactstrap";
 
-export const PostDetail = () => {
+export const PostDetail = ({}) => {
   const [post, setPost] = useState({});
+  const [brand] = useState({});
   const { postId } = useParams();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export const PostDetail = () => {
           <p className="post-quantity">{post.quantity}</p>
           <p>{post.purchasePrice}</p>
           <p>{post.soldPrice}</p>
-          <p>{post.brandId}</p>
+          <p>{brand.name}</p>
         </CardBody>
       </Card>
     </>

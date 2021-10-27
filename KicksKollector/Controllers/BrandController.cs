@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KicksKollector.Models;
 
 namespace KicksKollector.Controllers
 {
@@ -27,6 +28,17 @@ namespace KicksKollector.Controllers
             var brands = _brandRepository.GetAll();
 
             return Ok(brands);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var brand = _brandRepository.GetBrandById(id);
+            if (brand == null)
+            {
+                return NotFound();
+            }
+            return Ok(brand);
         }
     }
 }

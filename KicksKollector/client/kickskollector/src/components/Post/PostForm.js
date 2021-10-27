@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
-//import { getAllCategories } from '../../modules/categoryManager';
-import { addPost } from "../../modules/postManager";
+// import { get } from '../../modules/categoryManager';
+import { addPost, getAllPosts } from "../../modules/postManager";
 import { useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 export const PostForm = () => {
   const [post, setPost] = useState({
-    title: "",
-    content: "",
-    imageLocation: "",
-    publishDateTime: null,
-    categoryId: 0,
+    name: "",
+    size: "",
+    styleCode: "",
+    quantity: "",
+    purchasePrice: "",
+    soldPrice: "",
+    brandId: 0,
   });
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
 
   const history = useHistory();
 
