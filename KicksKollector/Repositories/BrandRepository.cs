@@ -66,9 +66,61 @@ namespace KicksKollector.Repositories
             }
             reader.Close();
             return brand;
+        }
 
+        public void Add(Brand brand)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Brand (Name)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@name)";
 
+                    DbUtils.AddParameter(cmd, "@name", brand.Name);
 
+                    brand.Id = (int)cmd.ExecuteScalar();
+
+                }
+            }
+        }
+
+        public void Edit(Brand brand)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Brand
+                                        SET Name = @name
+                                        WHERE Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@name", brand.Name);
+                    DbUtils.AddParameter(cmd, "@id", brand.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Delete(int brandId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Brand
+                                        WHERE Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", brandId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

@@ -40,5 +40,40 @@ namespace KicksKollector.Controllers
             }
             return Ok(brand);
         }
+
+        [HttpPost]
+        public IActionResult Post(Brand brand)
+        {
+            if (string.IsNullOrWhiteSpace(brand.Name))
+            {
+                brand.Name = null;
+                return NoContent();
+            }
+
+            _brandRepository.Add(brand);
+
+            return CreatedAtAction("Get", new { id = brand.Id }, brand);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Brand brand)
+        {
+            if (id != brand.Id)
+            {
+                return BadRequest();
+            }
+
+            _brandRepository.Edit(brand);
+            return NoContent();
+        }
+
+
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _brandRepository.Delete(id);
+            return NoContent();
+        }
     }
 }

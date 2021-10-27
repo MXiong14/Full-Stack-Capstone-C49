@@ -7,5 +7,8 @@ namespace KicksKollector.Repositories
     {
         List<Brand> GetAll();
         Brand GetBrandById(int id);
+        void Add(Brand brand);
+        void Edit(Brand brand);
+        void Delete(int brandId);
     }
 }
