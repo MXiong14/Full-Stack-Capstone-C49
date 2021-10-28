@@ -32,6 +32,10 @@ export default function ApplicationViews({ isLoggedIn }) {
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
         </Route>
 
+        <Route path="/EditAShoe/:postId" exact>
+          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
+        </Route>
+
         <Route path="/login">
           <Login />
         </Route>

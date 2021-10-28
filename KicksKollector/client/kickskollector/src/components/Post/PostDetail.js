@@ -33,13 +33,23 @@ export const PostDetail = ({}) => {
     <>
       <Card>
         <CardBody>
-          <h2>{post.name}</h2>
-          <p className="post-size">{post.size}</p>
-          <p className="post-stylecode">{post.styleCode}</p>
-          <p className="post-quantity">{post.quantity}</p>
-          <p>{post.purchasePrice}</p>
-          <p>{post.soldPrice}</p>
-          <p>{brand.name}</p>
+          <h2>Shoe name: {post.name}</h2>
+          <p className="post-size">Shoe size: {post.size}</p>
+          <p className="post-stylecode">Shoe style code: {post.styleCode}</p>
+          <p className="post-quantity">Quantity: {post.quantity}</p>
+          <p>Purchase price: {post.purchasePrice}</p>
+          <p>Sold price: {post.soldPrice}</p>
+          <button className="deleteButton" onClick={deletePost}>
+            Delete Shoe
+          </button>
+          <button
+            className="editButton"
+            onClick={() => {
+              history.push(`/EditAShoe/${post.id}`);
+            }}
+          >
+            Edit Shoe
+          </button>
         </CardBody>
       </Card>
     </>

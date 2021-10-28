@@ -54,121 +54,138 @@ export const PostForm = () => {
   };
 
   return (
-    <>
-      <form className="postForm">
-        <h2 className="postForm__title post_header">Add a new shoe</h2>
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              required
-              autoFocus
-              className="form-control"
-              placeholder="Required"
-              value={post.name}
-              onChange={handleControlledInputChange}
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="brand">Brand</label>
-            <select
-              value={post.brandId}
-              name="brandId"
-              id="brandId"
-              className="form-control"
-              onChange={handleControlledInputChange}
-            >
-              <option value="0">Select a Brand</option>
-              {brand.map((b) => (
-                <option key={b.id} value={b.id}>
-                  {b.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </fieldset>
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="Size">Size</label>
-            <input
-              type="text"
-              id="size"
-              required
-              autoFocus
-              className="form-control"
-              placeholder=""
-              value={post.size}
-              onChange={handleControlledInputChange}
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="styleCode">Style Code</label>
-            <input
-              type="text"
-              id="styleCode"
-              autoFocus
-              className="form-control"
-              placeholder=""
-              value={post.styleCode}
-              onChange={handleControlledInputChange}
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="purchasePrice">Purchase Price</label>
-            <textarea
-              type="text"
-              id="purchasePrice"
-              required
-              autoFocus
-              className="form-control"
-              placeholder=""
-              value={post.purcahsePrice}
-              onChange={handleControlledInputChange}
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="soldPrice">Sold Price</label>
-            <textarea
-              type="text"
-              id="soldPrice"
-              required
-              autoFocus
-              className="form-control"
-              placeholder=""
-              value={post.soldPrice}
-              onChange={handleControlledInputChange}
-            />
-          </div>
-        </fieldset>
-        <div className="buttons">
-          <button
-            className="pfbtns"
-            onClick={(event) => {
-              event.preventDefault();
-              handleClickSavePost();
-            }}
-          >
-            {postId ? "Edit Shoe" : "Save Shoe"}
-          </button>{" "}
-          {postId ? (
-            <button className="pfbtns" onClick={() => history.goBack()}>
-              Cancel
-            </button>
-          ) : (
-            ""
-          )}
+    <form className="Form">
+      <h2 className="Form__title">{postId ? "Edit Post" : "Add A Shoe"}</h2>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="name">Name: </label>
+          <input
+            type="text"
+            id="name"
+            required
+            autoFocus
+            className="form-control"
+            placeholder="Name"
+            onChange={handleControlledInputChange}
+            defaultValue={post.name}
+          />
         </div>
-      </form>
-    </>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="brand">Brand</label>
+          <select
+            value={post.brandId}
+            name="brandId"
+            id="brandId"
+            className="form-control"
+            onChange={handleControlledInputChange}
+          >
+            <option value="0">Select A Brand </option>
+            {brand.map((b) => (
+              <option key={b.id} value={b.id}>
+                {b.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="Size">Size: </label>
+          <input
+            type="text"
+            id="size"
+            required
+            autoFocus
+            className="form-control"
+            placeholder="Size"
+            onChange={handleControlledInputChange}
+            defaultValue={post.size}
+          />
+        </div>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="styleCode">Style Code: </label>
+          <input
+            type="text"
+            id="styleCode"
+            required
+            autoFocus
+            className="form-control"
+            placeholder="Style Code"
+            onChange={handleControlledInputChange}
+            defaultValue={post.styleCode}
+          />
+        </div>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="quantity">Quantity: </label>
+          <input
+            type="text"
+            id="quantity"
+            required
+            autoFocus
+            className="form-control"
+            placeholder="Quantity"
+            onChange={handleControlledInputChange}
+            defaultValue={post.quantity}
+          />
+        </div>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="purchasePrice">Purchase Price: </label>
+          <input
+            type="text"
+            id="purchasePrice"
+            required
+            autoFocus
+            className="form-control"
+            placeholder="Purchase Price"
+            onChange={handleControlledInputChange}
+            defaultValue={post.purchasePrice}
+          />
+        </div>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="soldPrice">Sold Price: </label>
+          <input
+            type="text"
+            id="soldPrice"
+            required
+            autoFocus
+            className="form-control"
+            placeholder="Sold Price"
+            onChange={handleControlledInputChange}
+            defaultValue={post.soldPrice}
+          />
+        </div>
+      </fieldset>
+      {/* <div>
+        <div>
+          <input
+            type="file"
+            onChange={(e) => setImage(e.target.files[0])}
+          ></input>
+          <button onClick={uploadImage}>Upload</button>
+        </div>
+        <div>
+          <img src={url} />
+        </div>
+      </div> */}
+      <button
+        className="btn btn-primary"
+        onClick={(event) => {
+          event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
+          handleClickSavePost(post);
+        }}
+      >
+        {postId ? "Save Shoe" : "Add A Shoe"}
+      </button>
+    </form>
   );
 };
