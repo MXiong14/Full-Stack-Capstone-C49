@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { getPostById } from "../../modules/postManager";
+import { getPostById, deletePost } from "../../modules/postManager";
 import { Card, CardBody } from "reactstrap";
 
 export const PostDetail = ({}) => {
@@ -9,7 +9,7 @@ export const PostDetail = ({}) => {
   const { postId } = useParams();
   const history = useHistory();
 
-  const deletePost = (event) => {
+  const deleteThePost = (event) => {
     event.preventDefault();
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this?",
@@ -39,7 +39,7 @@ export const PostDetail = ({}) => {
           <p className="post-quantity">Quantity: {post.quantity}</p>
           <p>Purchase price: {post.purchasePrice}</p>
           <p>Sold price: {post.soldPrice}</p>
-          <button className="deleteButton" onClick={deletePost}>
+          <button className="deleteButton" onClick={deleteThePost}>
             Delete Shoe
           </button>
           <button
