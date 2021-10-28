@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import { Home } from "../Home";
 import { MyPost } from "./Post/MyPost";
+import { PostForm } from "./Post/PostForm";
 import { PostDetail } from "./Post/PostDetail";
 import { PostList } from "./Post/PostList";
 
@@ -25,6 +26,10 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/GetPostById/:postId(\d+)" exact>
           {isLoggedIn ? <PostDetail /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/AddAShoe" exact>
+          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">

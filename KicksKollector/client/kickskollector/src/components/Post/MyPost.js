@@ -17,7 +17,7 @@ export const MyPost = () => {
   return (
     <>
       <h1>My Inventory</h1>
-      <Link to="/create">
+      <Link to="/AddAShoe">
         <button>New Post</button>
       </Link>
       <section className="posts">

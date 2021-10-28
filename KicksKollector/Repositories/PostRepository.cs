@@ -189,7 +189,7 @@ namespace KicksKollector.Repositories
                                         Name, Size, StyleCode, Quantity,
                                         PurchasePrice, SoldPrice, UserProfileId, BrandId)
                                         OUTPUT INSERTED.ID
-                                        VALUES(@name,@content,@styleCode,@quantity, @purchasePrice, @soldPrice, @userProfileId, @brandId);";
+                                        VALUES(@name, @size, @styleCode, @quantity, @purchasePrice, @soldPrice, @userProfileId, @brandId);";
                     DbUtils.AddParameter(cmd, "@name", post.Name);
                     DbUtils.AddParameter(cmd, "@size", post.Size);
                     DbUtils.AddParameter(cmd, "@styleCode", post.StyleCode);
@@ -250,5 +250,7 @@ namespace KicksKollector.Repositories
                 }
             }
         }
+
+  
     }
 }

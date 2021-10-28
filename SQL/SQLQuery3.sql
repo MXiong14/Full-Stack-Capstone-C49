@@ -23,11 +23,6 @@ CREATE TABLE [UserProfile] (
   [FireBaseUserId] nvarchar(255)
 )
 
-CREATE TABLE [Brand] (
-  [Id] int PRIMARY KEY IDENTITY,
-  [Name] nvarchar(255),
-)
-
 CREATE TABLE [Post] (
   [Id] int PRIMARY KEY IDENTITY,
   [Name] nvarchar(255),
@@ -44,6 +39,10 @@ CONSTRAINT [FK_Post_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserP
 ON DELETE CASCADE
 )
 
+CREATE TABLE [Brand] (
+  [Id] int PRIMARY KEY IDENTITY,
+  [Name] nvarchar(255),
+)
 
 
 

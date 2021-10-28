@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getPostById } from "../../modules/postManager";
 import { Card, CardBody } from "reactstrap";
 
@@ -7,10 +7,27 @@ export const PostDetail = ({}) => {
   const [post, setPost] = useState({});
   const [brand] = useState({});
   const { postId } = useParams();
+  const history = useHistory();
+
+  const deletePost = (event) => {
+    event.preventDefault();
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this?",
+    );
+    if (confirmDelete) {
+      deletePost(postId).then(() => {
+        history.push("/MyInventory");
+      });
+    }
+  };
 
   useEffect(() => {
     getPostById(postId).then((p) => setPost(p));
   }, []);
+
+  if (!post) {
+    return null;
+  }
 
   return (
     <>

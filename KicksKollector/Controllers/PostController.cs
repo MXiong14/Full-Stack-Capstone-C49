@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 
-namespace Tabloid.Controllers
+namespace KicksCollector.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
