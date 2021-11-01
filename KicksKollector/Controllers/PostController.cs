@@ -30,6 +30,7 @@ namespace KicksCollector.Controllers
             return Ok(posts);
         }
 
+
         [HttpGet("GetByUser")]
         public IActionResult GetByUser()
         {
@@ -72,7 +73,7 @@ namespace KicksCollector.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Post post)
+        public IActionResult Update(int id, Post post)
         {
             var currentUser = GetCurrentUserProfile();
 
@@ -86,7 +87,7 @@ namespace KicksCollector.Controllers
                 return Unauthorized();
             }
 
-            _postRepository.EditPost(post);
+            _postRepository.UpdatePost(post);
             return NoContent();
         }
 

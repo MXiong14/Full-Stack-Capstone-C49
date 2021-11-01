@@ -16,8 +16,7 @@ namespace KicksKollector.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT up.Id, Up.FirebaseUserId, up.FirstName, up.LastName,  
-                               up.Email
+                        SELECT up.Id, Up.FirebaseUserId, up.FirstName, up.LastName, up.Email
                           FROM UserProfile up
                          WHERE FirebaseUserId = @FirebaseuserId";
 
@@ -51,11 +50,9 @@ namespace KicksKollector.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, FirstName, LastName, DisplayName, 
-                                                                 Email, CreateDateTime, ImageLocation, UserTypeId)
+                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, FirstName, LastName, Email)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@FirebaseUserId, @FirstName, @LastName, @DisplayName, 
-                                                @Email, @CreateDateTime, @ImageLocation, @UserTypeId)";
+                                        VALUES (@FirebaseUserId, @FirstName, @LastName, @Email)";
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
                     DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);

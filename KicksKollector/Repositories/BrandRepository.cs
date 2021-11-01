@@ -20,9 +20,9 @@ namespace KicksKollector.Repositories
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-                    SELECT Id, [Name]
+                    SELECT Id, SubBrand
                     FROM Brand
-                    ORDER BY [Name]";
+                    ORDER BY SubBrand";
 
             using var reader = cmd.ExecuteReader();
 
@@ -33,7 +33,7 @@ namespace KicksKollector.Repositories
                 var brand = new Brand()
                 {
                     Id = DbUtils.GetInt(reader, "Id"),
-                    Name = DbUtils.GetString(reader, "Name")
+                    SubBrand = DbUtils.GetString(reader, "SubBrand")
                 };
                 brands.Add(brand);
             }
@@ -45,7 +45,7 @@ namespace KicksKollector.Repositories
             conn.Open();
             using var cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"SELECT Id, Name
+            cmd.CommandText = @"SELECT Id, SubBrand
                                   FROM Brand
                                   WHERE Id = @id";
 
@@ -60,7 +60,7 @@ namespace KicksKollector.Repositories
                 brand = new Brand
                 {
                     Id = DbUtils.GetInt(reader, "Id"),
-                    Name = DbUtils.GetString(reader, "Name"),
+                    SubBrand = DbUtils.GetString(reader, "SubBrand"),
                 };
 
             }
@@ -75,11 +75,11 @@ namespace KicksKollector.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Brand (Name)
+                    cmd.CommandText = @"INSERT INTO Brand (SubBrand)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@name)";
+                                        VALUES (@subbrand)";
 
-                    DbUtils.AddParameter(cmd, "@name", brand.Name);
+                    DbUtils.AddParameter(cmd, "@name", brand.SubBrand);
 
                     brand.Id = (int)cmd.ExecuteScalar();
 
@@ -95,10 +95,10 @@ namespace KicksKollector.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE Brand
-                                        SET Name = @name
+                                        SET SubBrand = @subbrand
                                         WHERE Id = @id";
 
-                    DbUtils.AddParameter(cmd, "@name", brand.Name);
+                    DbUtils.AddParameter(cmd, "@subbrand", brand.SubBrand);
                     DbUtils.AddParameter(cmd, "@id", brand.Id);
 
                     cmd.ExecuteNonQuery();

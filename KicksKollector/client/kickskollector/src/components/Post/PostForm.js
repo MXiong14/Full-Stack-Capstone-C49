@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { getAllBrands } from "../../modules/brandManager";
-import { addPost, getAllPosts, getPostById } from "../../modules/postManager";
+import { addPost, editPost, getPostById } from "../../modules/postManager";
 import { useHistory, useParams } from "react-router-dom";
-import { editPost } from "../../modules/postManager";
 
 export const PostForm = () => {
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState({
+    name: "",
+    size: "",
+    styleCode: "",
+    quantity: "",
+    purchasePrice: "",
+    soldPrice: "",
+    brandId: "",
+  });
   const [brand, setBrand] = useState([]);
   const history = useHistory();
   const { postId } = useParams();
-
-  useEffect(() => {
-    if (postId) {
-      getPostById(postId).then((p) => {
-        setPost(p);
-      });
-    }
-    getAllBrands().then(setBrand);
-  }, []);
 
   const handleControlledInputChange = (event) => {
     const newPost = { ...post };
@@ -25,7 +23,7 @@ export const PostForm = () => {
     setPost(newPost);
   };
 
-  const handleClickSavePost = () => {
+  const handleClickSavePost = (post) => {
     if (post.name === undefined) {
       window.alert("Please complete the form");
     } else if (postId) {
@@ -38,7 +36,8 @@ export const PostForm = () => {
         purchasePrice: post.purchasePrice,
         soldPrice: post.soldPrice,
         brandId: post.brandId,
-      }).then((p) => history.push("/MyInventory"));
+        userProfileId: post.userProfileId,
+      }).then(() => history.push("/MyInventory"));
     } else {
       const newPost = {
         name: post.name,
@@ -49,9 +48,17 @@ export const PostForm = () => {
         soldPrice: post.soldPrice,
         brandId: post.brandId,
       };
-      addPost(newPost).then((p) => history.push("/MyInventory"));
+      addPost(newPost).then(() => history.push("/MyInventory"));
     }
   };
+  useEffect(() => {
+    if (postId) {
+      getPostById(postId).then((p) => {
+        setPost(p);
+      });
+    }
+    getAllBrands().then(setBrand);
+  }, []);
 
   return (
     <form className="Form">
@@ -84,7 +91,7 @@ export const PostForm = () => {
             <option value="0">Select A Brand </option>
             {brand.map((b) => (
               <option key={b.id} value={b.id}>
-                {b.name}
+                {b.subBrand}
               </option>
             ))}
           </select>
@@ -185,6 +192,9 @@ export const PostForm = () => {
         }}
       >
         {postId ? "Save Shoe" : "Add A Shoe"}
+      </button>
+      <button className="pfbtns" onClick={() => history.push("/MyInventory")}>
+        Cancel
       </button>
     </form>
   );

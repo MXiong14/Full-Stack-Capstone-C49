@@ -21,7 +21,7 @@ namespace KicksKollector.Repositories
             cmd.CommandText = @"
                     SELECT p.Id, p.Name, p.Size, p.StyleCode, p.Quantity, p.PurchasePrice, p.SoldPrice, p.BrandId, p.UserProfileId,
 	                       up.Email, up.FirstName, up.LastName,
-	                       b.[Name]
+	                       b.SubBrand
                     FROM Post p
                     LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
                     LEFT JOIN Brand b ON p.BrandId = b.Id
@@ -58,7 +58,7 @@ namespace KicksKollector.Repositories
                 post.Brand = new Brand()
                 {
                     Id = DbUtils.GetInt(reader, "BrandId"),
-                    Name = DbUtils.GetString(reader, "Name")
+                    SubBrand = DbUtils.GetString(reader, "SubBrand")
                 };
 
                 posts.Add(post);
@@ -76,7 +76,7 @@ namespace KicksKollector.Repositories
             cmd.CommandText = @"
                     SELECT p.Id, p.Name, p.Size, p.StyleCode, p.Quantity, p.PurchasePrice, p.SoldPrice, p.BrandId, p.UserProfileId,
 	                       up.Email, up.FirstName, up.LastName,
-	                       b.[Name]
+	                       b.SubBrand
                     FROM Post p
                     LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
                     LEFT JOIN Brand b ON p.BrandId = b.Id
@@ -115,7 +115,7 @@ namespace KicksKollector.Repositories
                 post.Brand = new Brand()
                 {
                     Id = DbUtils.GetInt(reader, "BrandId"),
-                    Name = DbUtils.GetString(reader, "Name")
+                    SubBrand = DbUtils.GetString(reader, "SubBrand")
                 };
 
                 posts.Add(post);
@@ -133,7 +133,7 @@ namespace KicksKollector.Repositories
             cmd.CommandText = @"
                     SELECT p.Id, p.Name, p.Size, p.StyleCode, p.Quantity, p.PurchasePrice, p.SoldPrice, p.BrandId, p.UserProfileId,
 	                       up.Email, up.FirstName, up.LastName,
-	                       b.[Name]
+	                       b.Id, b.SubBrand
                     FROM Post p
                     LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
                     LEFT JOIN Brand b ON p.BrandId = b.Id
@@ -153,6 +153,7 @@ namespace KicksKollector.Repositories
                     Name = DbUtils.GetString(reader, "Name"),
                     Size = DbUtils.GetInt(reader, "Size"),
                     StyleCode = DbUtils.GetString(reader, "StyleCode"),
+                    Quantity = DbUtils.GetInt(reader, "Quantity"),
                     PurchasePrice = DbUtils.GetInt(reader, "PurchasePrice"),
                     SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
                     BrandId = DbUtils.GetInt(reader, "BrandId"),
@@ -171,7 +172,7 @@ namespace KicksKollector.Repositories
                 post.Brand = new Brand()
                 {
                     Id = DbUtils.GetInt(reader, "BrandId"),
-                    Name = DbUtils.GetString(reader, "Name")
+                    SubBrand = DbUtils.GetString(reader, "SubBrand")
                 };
 
             }
@@ -203,6 +204,40 @@ namespace KicksKollector.Repositories
                 }
             }
         }
+
+        public void UpdatePost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                      UPDATE Post SET 
+                      Name = @Name,
+                      Size = @Size,
+                      StyleCode = @StyleCode, 
+                      Quantity = @Quantity,
+                      PurchasePrice = @PurchasePrice,
+                      SoldPrice = @SoldPrice,
+                      BrandId = @BrandId,
+                      UserProfileId = @UserProfileId
+                      WHERE Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@Name", post.Name);
+                    DbUtils.AddParameter(cmd, "@Size", post.Size);
+                    DbUtils.AddParameter(cmd, "@StyleCode", post.StyleCode);
+                    DbUtils.AddParameter(cmd, "@Quantity", post.Quantity);
+                    DbUtils.AddParameter(cmd, "@PurchasePrice", post.PurchasePrice);
+                    DbUtils.AddParameter(cmd, "@SoldPrice", post.SoldPrice);
+                    DbUtils.AddParameter(cmd, "@BrandId", post.BrandId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public void DeletePost(int id)
         {
             using (var conn = Connection)
@@ -214,38 +249,6 @@ namespace KicksKollector.Repositories
                                         DELETE FROM POST
                                         WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void EditPost(Post post)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                      UPDATE Post
-                      SET Name = Name,
-                      Size = Size,
-                      StyleCode = StyleCode, 
-                      Quantity = Quantity,
-                      PurchasePrice = PurchasePrice,
-                      SoldPrice = SoldPrice,
-                      BrandId = BrandId
-                      WHERE Id = @Id";
-
-                    DbUtils.AddParameter(cmd, "@Name", post.Name);
-                    DbUtils.AddParameter(cmd, "@Size", post.Size);
-                    DbUtils.AddParameter(cmd, "@StyleCode", post.StyleCode);
-                    DbUtils.AddParameter(cmd, "@Quantity", post.Quantity);
-                    DbUtils.AddParameter(cmd, "@PurchasePrice", post.PurchasePrice);
-                    DbUtils.AddParameter(cmd, "@SoldPrice", post.SoldPrice);
-                    DbUtils.AddParameter(cmd, "@BrandId", post.BrandId);
-                    DbUtils.AddParameter(cmd, "@Id", post.Id);
-
                     cmd.ExecuteNonQuery();
                 }
             }

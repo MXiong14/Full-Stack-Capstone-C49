@@ -44,9 +44,9 @@ namespace KicksKollector.Controllers
         [HttpPost]
         public IActionResult Post(Brand brand)
         {
-            if (string.IsNullOrWhiteSpace(brand.Name))
+            if (string.IsNullOrWhiteSpace(brand.SubBrand))
             {
-                brand.Name = null;
+                brand.SubBrand = null;
                 return NoContent();
             }
 

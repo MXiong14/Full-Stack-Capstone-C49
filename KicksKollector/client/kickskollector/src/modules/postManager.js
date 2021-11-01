@@ -21,7 +21,7 @@ export const getAllPosts = () => {
   });
 };
 
-export const getByUser = (id) => {
+export const getByUser = () => {
   return getToken().then((token) => {
     return fetch(`${apiUrl}/GetByUser`, {
       method: "GET",
@@ -61,7 +61,7 @@ export const getPostById = (id) => {
 
 export const addPost = (post) => {
   return getToken().then((token) => {
-    return fetch(`${apiUrl}`, {
+    return fetch(apiUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -82,6 +82,19 @@ export const addPost = (post) => {
   });
 };
 
+export const editPost = (post) => {
+  return getToken().then((token) => {
+    return fetch(`${apiUrl}/${post.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+  });
+};
+
 export const deletePost = (id) => {
   return getToken().then((token) => {
     fetch(`${apiUrl}/${id}`, {
@@ -90,19 +103,6 @@ export const deletePost = (id) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-    });
-  });
-};
-
-export const editPost = (post) => {
-  return getToken().then((token) => {
-    return fetch(`{apiUrl}/${post.id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(post),
     });
   });
 };

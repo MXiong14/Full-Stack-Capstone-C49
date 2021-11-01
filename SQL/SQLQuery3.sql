@@ -21,7 +21,15 @@ CREATE TABLE [UserProfile] (
   [FirstName] nvarchar(255),
   [LastName] nvarchar(255),
   [FireBaseUserId] nvarchar(255)
+
+  CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
 )
+
+CREATE TABLE [Brand] (
+  [Id] int PRIMARY KEY IDENTITY,
+  [SubBrand] nvarchar(255),
+)
+
 
 CREATE TABLE [Post] (
   [Id] int PRIMARY KEY IDENTITY,
@@ -34,14 +42,9 @@ CREATE TABLE [Post] (
   [UserProfileId] int,
   [BrandId] int,
 
-CONSTRAINT [FK_Post_Brand] FOREIGN KEY ([BrandId]) REFERENCES [Brand] ([Id]),
 CONSTRAINT [FK_Post_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
+CONSTRAINT [FK_Post_Brand] FOREIGN KEY ([BrandId]) REFERENCES [Brand] ([Id]),
 ON DELETE CASCADE
-)
-
-CREATE TABLE [Brand] (
-  [Id] int PRIMARY KEY IDENTITY,
-  [Name] nvarchar(255),
 )
 
 

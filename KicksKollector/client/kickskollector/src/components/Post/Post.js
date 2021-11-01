@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 
 export const Post = ({ post }) => {
@@ -14,12 +14,11 @@ export const Post = ({ post }) => {
               history.push(`/GetPostById/${post.id}`);
             }}
           >
-            {post.name}
+            Name: {post.name}
           </h2>
         </p>
         <CardBody>
-          <p className="post-size">{post.size}</p>
-          <p className="post-stylecode">{post.styleCode}</p>
+          <p className="post-size">Size: {post.size}</p>
         </CardBody>
       </Card>
     </>

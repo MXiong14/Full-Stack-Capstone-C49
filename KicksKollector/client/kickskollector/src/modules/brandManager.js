@@ -15,7 +15,7 @@ export const getAllBrands = () => {
         return res.json();
       } else {
         throw new Error(
-          "An unknown error occurred while trying to get categories.",
+          "An unknown error occurred while trying to get brands.",
         );
       }
     });
@@ -34,7 +34,7 @@ export const getBrandById = (id) => {
         return res.json(id);
       } else {
         throw new Error(
-          "An unknown error occurred while trying to get categories.",
+          "An unknown error occurred while trying to get brands.",
         );
       }
     });
