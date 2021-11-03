@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getPostById, deletePost } from "../../modules/postManager";
+
 import { Card, CardBody } from "reactstrap";
 
 export const PostDetail = () => {
@@ -45,7 +46,6 @@ export const PostDetail = () => {
             Edit Shoe
           </button>
           <h2>Shoe name: {post.name}</h2>
-          <p className="brand-name">Brand name: {brand.name}</p>
           <p className="post-size">Shoe size: {post.size}</p>
           <p className="post-stylecode">Shoe style code: {post.styleCode}</p>
           <p className="post-quantity">Quantity: {post.quantity}</p>

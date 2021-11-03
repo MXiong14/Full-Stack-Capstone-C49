@@ -9,7 +9,7 @@ export const Home = () => {
           <body></body>
 
           <footer class="copyright">
-            &copy; Kard Kollector, All Rights Reserved
+            &copy; Kicks Kollector, All Rights Reserved
           </footer>
         </body>
       </html>

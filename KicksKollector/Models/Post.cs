@@ -19,7 +19,7 @@ namespace KicksKollector.Models
 
         public int PurchasePrice { get; set; }
 
-        public int SoldPrice { get; set; }
+        public int? SoldPrice { get; set; }
 
         public int BrandId { get; set; }
 

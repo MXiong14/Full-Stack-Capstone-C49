@@ -10,7 +10,7 @@ export const PostForm = () => {
     styleCode: "",
     quantity: "",
     purchasePrice: "",
-    soldPrice: "",
+    soldPrice: null,
     brandId: "",
   });
   const [brand, setBrand] = useState([]);
@@ -163,12 +163,11 @@ export const PostForm = () => {
           <input
             type="text"
             id="soldPrice"
-            required
             autoFocus
             className="form-control"
             placeholder="Sold Price"
             onChange={handleControlledInputChange}
-            defaultValue={post.soldPrice}
+            defaultValue={post.soldPrice || ""}
           />
         </div>
       </fieldset>

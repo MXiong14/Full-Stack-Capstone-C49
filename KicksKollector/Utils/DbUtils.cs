@@ -55,7 +55,7 @@ namespace KicksKollector.Utils
         /// <param name="reader">A SqlDataReader that has not exhausted it's result set.</param>
         /// <param name="column">The name of the column from the result set refereed to by the reader.</param>
         /// <returns>The value of the given column or null.</returns>
-        public static int? GetNullableInt(SqlDataReader reader, string column)
+        public static int? GetNullableInt( SqlDataReader reader, string column)
         {
             var ordinal = reader.GetOrdinal(column);
             if (reader.IsDBNull(ordinal))
@@ -121,6 +121,11 @@ namespace KicksKollector.Utils
             {
                 cmd.Parameters.AddWithValue(name, value);
             }
+        }
+
+        public static object ValueOrDBNull(object value)
+        {
+            return value ?? DBNull.Value;
         }
     }
 }

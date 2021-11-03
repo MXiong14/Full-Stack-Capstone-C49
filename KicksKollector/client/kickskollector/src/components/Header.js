@@ -17,7 +17,7 @@ export default function Header({ isLoggedIn }) {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar color="dark" light expand="md">
         <NavbarBrand tag={RRNavLink} to="/">
           KicksKollector
         </NavbarBrand>

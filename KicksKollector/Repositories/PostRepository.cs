@@ -41,7 +41,7 @@ namespace KicksKollector.Repositories
                     StyleCode = DbUtils.GetString(reader, "StyleCode"),
                     Quantity = DbUtils.GetInt(reader, "Quantity"),
                     PurchasePrice = DbUtils.GetInt(reader, "PurchasePrice"),
-                    SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
+                    SoldPrice = DbUtils.GetNullableInt(reader, "SoldPrice"),
                     BrandId = DbUtils.GetInt(reader, "BrandId"),
                     UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                 };
@@ -80,7 +80,8 @@ namespace KicksKollector.Repositories
                     FROM Post p
                     LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
                     LEFT JOIN Brand b ON p.BrandId = b.Id
-                    WHERE up.id = @Id";
+                    WHERE up.id = @Id
+                    ORDER BY p.Id DESC";
 
             DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -98,7 +99,7 @@ namespace KicksKollector.Repositories
                     StyleCode = DbUtils.GetString(reader, "StyleCode"),
                     Quantity = DbUtils.GetInt(reader, "Quantity"),
                     PurchasePrice = DbUtils.GetInt(reader, "PurchasePrice"),
-                    SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
+                    SoldPrice = DbUtils.GetNullableInt(reader, "SoldPrice"),
                     BrandId = DbUtils.GetInt(reader, "BrandId"),
                     UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                 };
@@ -155,7 +156,7 @@ namespace KicksKollector.Repositories
                     StyleCode = DbUtils.GetString(reader, "StyleCode"),
                     Quantity = DbUtils.GetInt(reader, "Quantity"),
                     PurchasePrice = DbUtils.GetInt(reader, "PurchasePrice"),
-                    SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
+                    SoldPrice = DbUtils.GetNullableInt(reader, "SoldPrice"),
                     BrandId = DbUtils.GetInt(reader, "BrandId"),
                     UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                 };
@@ -196,7 +197,7 @@ namespace KicksKollector.Repositories
                     DbUtils.AddParameter(cmd, "@styleCode", post.StyleCode);
                     DbUtils.AddParameter(cmd, "@quantity", post.Quantity);
                     DbUtils.AddParameter(cmd, "@purchasePrice", post.PurchasePrice);
-                    DbUtils.AddParameter(cmd, "@soldPrice", post.SoldPrice);
+                    DbUtils.AddParameter(cmd, "@soldPrice", DbUtils.ValueOrDBNull(post.SoldPrice));
                     DbUtils.AddParameter(cmd, "@userProfileId", post.UserProfileId);
                     DbUtils.AddParameter(cmd, "@brandId", post.BrandId);
 
@@ -229,10 +230,11 @@ namespace KicksKollector.Repositories
                     DbUtils.AddParameter(cmd, "@StyleCode", post.StyleCode);
                     DbUtils.AddParameter(cmd, "@Quantity", post.Quantity);
                     DbUtils.AddParameter(cmd, "@PurchasePrice", post.PurchasePrice);
-                    DbUtils.AddParameter(cmd, "@SoldPrice", post.SoldPrice);
+                    DbUtils.AddParameter(cmd, "@SoldPrice", DbUtils.ValueOrDBNull(post.SoldPrice));
                     DbUtils.AddParameter(cmd, "@BrandId", post.BrandId);
                     DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
                     DbUtils.AddParameter(cmd, "@id", post.Id);
+
 
                     cmd.ExecuteNonQuery();
                 }
