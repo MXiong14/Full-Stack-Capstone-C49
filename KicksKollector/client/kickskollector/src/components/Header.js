@@ -10,6 +10,7 @@ import {
   NavLink,
 } from "reactstrap";
 import { logout } from "../modules/authManager";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,63 +18,58 @@ export default function Header({ isLoggedIn }) {
 
   return (
     <div>
-      <Navbar color="dark" light expand="md">
+      <Navbar color="light" light expand="md">
         <NavbarBrand tag={RRNavLink} to="/">
           KicksKollector
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
-        <Nav className="mr-auto" navbar>
-          {/* When isLoggedIn === true, we will render the Home link */}
-          {isLoggedIn && (
-            <>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/">
-                  Home
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/AllPosts">
-                  Community Posts
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/MyInventory">
-                  My Inventory
-                </NavLink>
-              </NavItem>
-            </>
-          )}
-        </Nav>
-        <Nav navbar>
-          {isLoggedIn && (
-            <>
-              <NavItem>
-                <a
-                  aria-current="page"
-                  className="nav-link"
-                  style={{ cursor: "pointer" }}
-                  onClick={logout}
-                >
-                  Logout
-                </a>
-              </NavItem>
-            </>
-          )}
-          {!isLoggedIn && (
-            <>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/login">
-                  Login
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/register">
-                  Register
-                </NavLink>
-              </NavItem>
-            </>
-          )}
-        </Nav>
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            {/* When isLoggedIn === true, we will render the Home link */}
+            {isLoggedIn && (
+              <>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/">
+                    Home
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/AllPosts">
+                    Community Posts
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/MyInventory">
+                    My Inventory
+                  </NavLink>
+                </NavItem>
+              </>
+            )}
+          </Nav>
+          <Nav navbar>
+            {isLoggedIn && (
+              <>
+                <NavItem>
+                  <a onClick={logout}>Logout</a>
+                </NavItem>
+              </>
+            )}
+            {!isLoggedIn && (
+              <>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/login">
+                    Login
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/register">
+                    Register
+                  </NavLink>
+                </NavItem>
+              </>
+            )}
+          </Nav>
+        </Collapse>
       </Navbar>
     </div>
   );

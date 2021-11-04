@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllBrands } from "../../modules/brandManager";
 import { addPost, editPost, getPostById } from "../../modules/postManager";
 import { useHistory, useParams } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const PostForm = () => {
   const [post, setPost] = useState({
