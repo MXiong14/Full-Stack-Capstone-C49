@@ -1,0 +1,10 @@
+.navbar {
+  display: flex;
+  color: black;
+}
+
+.navbar__item {
+  flex-basis: 20%;
+  list-style-type: none;
+  color: black;
+}

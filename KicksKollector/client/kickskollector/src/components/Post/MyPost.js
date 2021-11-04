@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Post } from "./Post.js";
 import { getByUser } from "../../modules/postManager.js";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const MyPost = () => {
   const [posts, SetPosts] = useState([]);
@@ -18,7 +19,7 @@ export const MyPost = () => {
     <>
       <h1>My Inventory</h1>
       <Link to="/AddAShoe">
-        <button>New Post</button>
+        <button>New Shoe</button>
       </Link>
       <section className="posts">
         {posts.map((post) => {

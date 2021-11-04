@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const Post = ({ post }) => {
   const history = useHistory();
@@ -19,6 +20,7 @@ export const Post = ({ post }) => {
         </p>
         <CardBody>
           <p className="post-size">Size: {post.size}</p>
+          <p className="post-size">Username: {post.userProfile?.firstName}</p>
         </CardBody>
       </Card>
     </>
